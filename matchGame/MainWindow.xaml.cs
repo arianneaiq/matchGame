@@ -34,14 +34,14 @@ namespace matchGame
             timer.Tick += Timer_Tick;
 
             SetUpGame();
-
-            
+  
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             tenthOfSecondsElapsed++;
             timeTextBlock.Text = (tenthOfSecondsElapsed / 10F).ToString("0.0s");
+
             if (matchesFound == 8)
             {
                 timer.Stop();
@@ -62,7 +62,9 @@ namespace matchGame
                     "🦁","🦁",
                     "🦒","🦒",
                     "🦊","🦊",
+
             };
+
 
             Random random = new Random();
 
@@ -72,8 +74,8 @@ namespace matchGame
                 {
                     textBlock.Visibility = Visibility.Visible;
                     int index = random.Next(animalEmoji.Count);
-                    string nextEmoji = animalEmoji[index];
-                    textBlock.Text = nextEmoji;
+                    string nextanimalEmoji = animalEmoji[index];
+                    textBlock.Text = nextanimalEmoji;
                     animalEmoji.RemoveAt(index);
                 }
             }
@@ -81,6 +83,41 @@ namespace matchGame
             timer.Start();
             tenthOfSecondsElapsed = 0;
             matchesFound = 0;
+
+        }
+
+        private void SetUpGame2()
+        {
+
+            List<string> Emoji = new List<string>()
+            {
+                    "😀","😀",
+                    "🤣","🤣",
+                    "😎","😎",
+                    "🥰","🥰",
+                    "😏","😏",
+                    "😪","😪",
+                    "😴","😴",
+                    "😛","😛",
+            };
+
+            Random random = new Random();
+
+            foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
+            {
+                if (textBlock.Name != "timeTextBlock")
+                {
+                    textBlock.Visibility = Visibility.Visible;
+                    int index = random.Next(Emoji.Count);
+                    string nextEmoji = Emoji[index];
+                    textBlock.Text = nextEmoji;
+                    Emoji.RemoveAt(index);
+                }
+            }
+
+            timer.Start();
+            tenthOfSecondsElapsed = 0;
+            matchesFound = 8;
 
         }
 
@@ -114,6 +151,10 @@ namespace matchGame
         private void TimeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (matchesFound == 8)
+            {
+                SetUpGame2();
+            }
+            else 
             {
                 SetUpGame();
             }
