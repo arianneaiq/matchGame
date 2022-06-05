@@ -47,6 +47,7 @@ namespace matchGame
                 timer.Stop();
                 timeTextBlock.Text = timeTextBlock.Text + " - Play Again?";
             }
+       
 
         }
 
@@ -117,7 +118,7 @@ namespace matchGame
 
             timer.Start();
             tenthOfSecondsElapsed = 0;
-            matchesFound = 8;
+            matchesFound = 0;
 
         }
 
@@ -148,15 +149,23 @@ namespace matchGame
             }
         }
 
+        TextBlock timeTextBlockClicked;
+        bool SetUpGameStart = false;
+
         private void TimeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (matchesFound == 8)
+            TextBlock timeTextBlock = sender as TextBlock;
+            if (SetUpGameStart == false)
             {
+                timeTextBlockClicked = timeTextBlock;
                 SetUpGame2();
+                SetUpGameStart = true;
             }
-            else 
+
+            else
             {
                 SetUpGame();
+                SetUpGameStart = false;
             }
         }
     }
